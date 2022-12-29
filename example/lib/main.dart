@@ -2,13 +2,15 @@ import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Anim search bar Example',
       home: App(),
@@ -17,29 +19,31 @@ class MyApp extends StatelessWidget {
 }
 
 class App extends StatefulWidget {
+  const App({super.key});
+
   @override
-  _AppState createState() => _AppState();
+  State<App> createState() => _AppState();
 }
 
 class _AppState extends State<App> {
-  TextEditingController textController = TextEditingController();
-
+  final textController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 58.0, right: 10, left: 10),
-
-      /// In AnimSearchBar widget, the width, textController, onSuffixTap are required properties.
-      /// You have also control over the suffixIcon, prefixIcon, helpText and animationDurationInMilli
-      child: AnimSearchBar(
+    return Scaffold(
+      appBar: AppBar(
+          title: AnimSearchBar(
         width: 400,
         textController: textController,
+        rtl: true,
         onSuffixTap: () {
           setState(() {
             textController.clear();
           });
         },
-      ),
+        onChanged: (v) {
+          print(v);
+        },
+      )),
     );
   }
 }

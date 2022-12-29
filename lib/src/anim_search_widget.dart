@@ -38,7 +38,8 @@ class AnimSearchBar extends StatefulWidget {
   final Color? textFieldIconColor;
   final List<TextInputFormatter>? inputFormatters;
   final bool boxShadow;
-  final Function(String) onSubmitted;
+  final Function(String)? onSubmitted;
+  final void Function(String)? onChanged;
 
   const AnimSearchBar({
     Key? key,
@@ -69,7 +70,8 @@ class AnimSearchBar extends StatefulWidget {
     this.animationDurationInMilli = 375,
 
     /// The onSubmitted cannot be null
-    required this.onSubmitted,
+     this.onSubmitted,
+    required this.onChanged,
 
     /// make the search bar to open from right to left
     this.rtl = false,
@@ -253,16 +255,16 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                     focusNode: focusNode,
                     cursorRadius: Radius.circular(10.0),
                     cursorWidth: 2.0,
-                    onChanged: (value) {
-                      textFieldValue = value;
-                    },
+                    onChanged: widget.onChanged,
                     onSubmitted: (value) => {
-                      widget.onSubmitted(value),
+                     if(widget.onSubmitted != null){
+                       widget.onSubmitted!(value),
                       unfocusKeyboard(),
                       setState(() {
                         toggle = 0;
                       }),
                       widget.textController.clear(),
+                     }
                     },
                     onEditingComplete: () {
                       /// on editing complete the keyboard will be closed and the search bar will be closed
