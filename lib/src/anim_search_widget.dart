@@ -70,7 +70,7 @@ class AnimSearchBar extends StatefulWidget {
     this.animationDurationInMilli = 375,
 
     /// The onSubmitted cannot be null
-     this.onSubmitted,
+    this.onSubmitted,
     required this.onChanged,
 
     /// make the search bar to open from right to left
@@ -257,14 +257,15 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                     cursorWidth: 2.0,
                     onChanged: widget.onChanged,
                     onSubmitted: (value) => {
-                     if(widget.onSubmitted != null){
-                       widget.onSubmitted!(value),
-                      unfocusKeyboard(),
-                      setState(() {
-                        toggle = 0;
-                      }),
-                      widget.textController.clear(),
-                     }
+                      if (widget.onSubmitted != null)
+                        {
+                          widget.onSubmitted!(value),
+                          unfocusKeyboard(),
+                          setState(() {
+                            toggle = 0;
+                          }),
+                          widget.textController.clear(),
+                        }
                     },
                     onEditingComplete: () {
                       /// on editing complete the keyboard will be closed and the search bar will be closed
@@ -284,6 +285,9 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                       isDense: true,
                       floatingLabelBehavior: FloatingLabelBehavior.never,
                       labelText: widget.helpText,
+                      hintStyle: widget.style != null
+                          ? widget.style
+                          : TextStyle(color: Colors.black),
                       labelStyle: TextStyle(
                         color: Color(0xff5B5B5B),
                         fontSize: 17.0,
@@ -320,7 +324,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                           )
                         : widget.prefixIcon!
                     : Icon(
-                        toggle == 1 ? Icons.arrow_back_ios : Icons.search,
+                        toggle == 1 ? Icons.arrow_forward_ios : Icons.search,
                         // search icon color when closed
                         color: toggle == 0
                             ? widget.searchIconColor

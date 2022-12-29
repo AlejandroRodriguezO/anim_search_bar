@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Anim search bar Example',
+      themeMode: ThemeMode.dark,
       home: App(),
     );
   }
